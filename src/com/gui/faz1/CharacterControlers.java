@@ -67,38 +67,107 @@ public class CharacterControlers extends PlainDocument{
 	        }
 	    });
 	 }
-	 
-	 public boolean charactercontrols(String PNumber, String PName , String PPrice, String PVat, String PBarcode)
+	 public boolean charactercontrol(GUI getA,String knt)
 	 {
-		
-			
-				if(PNumber.equals(""))
-				{
-					JOptionPane.showMessageDialog(null, "Boş bırakmayınız");
-					check=false;
-					
-				}
-				else if(Integer.parseInt(PNumber) <1)
-				{
-					JOptionPane.showMessageDialog(null, "lütfen 1  den büyük bir değer giriniz");
-					check=false;
-				}
-				else if(PBarcode.length() >0 && PBarcode.length()<13)
-				{
+		 if(knt.equals("insert"))
+			{
+			 if(getA.getTName().getText().equals("") && getA.getTName().isVisible()==true)
+			 {
+				JOptionPane.showMessageDialog(null, "ismi boş bırakmayınız");
+				check=false;
+			 }
+			 else if(getA.getTBarcode().getText().length() >0 && getA.getTBarcode().getText().length()<13)
+			 {
 		            JOptionPane.showMessageDialog(null, "lütfen barkodunuzu 12 karakter kadar giriş yapınız yada boş bırakınız.");
 		            check=false;
+			 }
+			 else 
+			 {
+			 try
+			 {
+					if(Float.parseFloat(getA.getTPrice().getText()) >99999.99)
+					{
+						JOptionPane.showMessageDialog(null, "lütfen 99999.99 den küçük değer giriniz ");
+						check=false;
+					}
+					else
+					{
+						 try 
+						 {
+							 Integer.parseInt(getA.getTNumbe().getText());
+							check=true;
+						 }
+						catch (Exception e)
+						 {
+								JOptionPane.showMessageDialog(null, "lütfen doğru bir ürün formatta bir ürün numarası giriniz");
+								check=false;
+						 }
+						
+					}
+					
 				}
-				else if(Float.parseFloat(PPrice) >99999.99)
+			 catch (Exception e)
+			 {
+				 JOptionPane.showMessageDialog(null, "lütfen  ürün fiyatını ondalıklı sayı giriniz");
+				 check=false;
+			 }
+			 }
+			
+				
+			}
+		 else
+			 if(knt.equals("update"))
 				{
-					JOptionPane.showMessageDialog(null, "lütfen 99999.99 den küçük değer giriniz ");
+				 if(getA.getUptTName().getText().equals("") && getA.getUptTName().isVisible()==true)
+				 {
+					JOptionPane.showMessageDialog(null, "ismi boş bırakmayınız");
 					check=false;
+				 }
+				 else if(getA.getUptTBarcode().getText().length() >0 && getA.getUptTBarcode().getText().length()<13)
+				 {
+			            JOptionPane.showMessageDialog(null, "lütfen barkodunuzu 12 karakter kadar giriş yapınız yada boş bırakınız.");
+			            check=false;
+				 }
+				 else 
+				 {
+				 try
+				 {
+						if(Float.parseFloat(getA.getUptTPrice().getText()) >99999.99)
+						{
+							JOptionPane.showMessageDialog(null, "lütfen 99999.99 den küçük değer giriniz ");
+							check=false;
+						}
+						else if(getA.getUptTNumbe().isVisible()==true)
+						{
+							 try 
+							 {
+								 
+								 Integer.parseInt(getA.getUptTNumbe().getText());
+								check=true;
+								 
+							 }
+							catch (Exception e)
+							 {
+									JOptionPane.showMessageDialog(null, "lütfen doğru bir ürün formatta bir ürün numarası giriniz");
+									check=false;
+							 }
+							
+						}
+						else {check=true;}
+						
+					}
+				 catch (Exception e)
+				 {
+					 JOptionPane.showMessageDialog(null, "lütfen  ürün fiyatını ondalıklı sayı giriniz");
+					 check=false;
+				 }
+				 }
+					
+					
 				}
-				else
-				{
-					check=true;
-				}
-				return check;
-	 
+			 return check;
+	
 	 }
+	
 	
 }

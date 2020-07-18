@@ -27,7 +27,7 @@ public class ListProduct extends ConnectDB {
 				 record.put("Id", rs.getInt("ID"));
 				   record.put("Name", rs.getString("Name"));
 				   record.put("Price", rs.getString("Price"));
-				   record.put("Vat", rs.getDate("Vat"));
+				   record.put("Vat", rs.getInt("Vat"));
 				   record.put("Barcode", rs.getString("Barcode"));
 				   array.add(record);
 		   

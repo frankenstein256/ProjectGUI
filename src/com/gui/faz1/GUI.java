@@ -2,7 +2,9 @@ package com.gui.faz1;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
+import java.awt.Component;
 import java.awt.Desktop.Action;
+import java.io.File;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Insets;
@@ -14,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -343,22 +346,26 @@ public class GUI {
 	private JPanel reportPanel;
 	
 	private JPanel reportListPanel;
+	private JPanel BarPanel;
 	public GUI()
 	{
 	
 		frame = new JFrame();
+			
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.getPreferredSize();
+	    frame.setResizable(false); 
 	    reportPanel = new JPanel();
 	    CreatePanel = new JPanel();
 	    FramePanel = new JPanel();
 	    SendButonPanel = new JPanel() ;
 	    TopPanel = new JPanel();
-	    CenterPanel = new JPanel();
+	    setCenterPanel(new JPanel());
 	    UpdatePanel = new JPanel();
 	    BottomPanel = new JPanel();
 	    SerachPanel = new JPanel() ;
 	    reportListPanel = new JPanel() ;
+	    BarPanel=new JPanel();
 	    
 	    
 	    CenterSerachPanel = new JPanel();
@@ -367,24 +374,23 @@ public class GUI {
 	    SerachPanel.setMaximumSize(new Dimension(440, 30));
 	    
 	    CreatePanel.setPreferredSize(new Dimension(440, 115));
-		FramePanel.setLayout(new GridLayout(5,0));
+		FramePanel.setLayout(new GridLayout(6,0));
 	    CreatePanel.setLayout(new GridLayout(0,2));
 	    UpdatePanel.setLayout(new GridLayout(0,2));
 	    SerachPanel.setLayout(new GridLayout(0,2));
 	    reportPanel.setLayout(new GridLayout(0,2));
 	    
 	    CenterSerachPanel2.setLayout(new GridLayout(2,0));
-	    
+	  
 	    setReports(new JButton("RAPORLA"));
 	    
-	    setArea(new JTextArea());
+	    setArea(new JTextArea(7,40));
 	    setReportarea(new JTextArea(7,40));
 		setSend(new JButton("gönder"));
 		setUpdate(new JButton("Güncelle"));
 		setSearch(new JButton("ürün numarası \n ürün adı \nBUL "));
 		
-	
-		
+
 		setTNumbe(new JTextField());
 		setTName(new JTextField());
 		setTPrice(new JTextField());
@@ -485,16 +491,17 @@ public class GUI {
 		
 		SerachPanel.add(getUptTSerachBar());
 		SerachPanel.add(getSearch());
-	
+		JScrollPane area= new JScrollPane(getArea(),JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
 		
 
 		
 		TopPanel.add(CreatePanel);
-		CenterPanel.add(UpdatePanel);
+		getCenterPanel().add(UpdatePanel);
 		CenterSerachPanel2.add(SerachPanel);
-		CenterSerachPanel2.add(getArea());
+		BarPanel.add(area);
 		CenterSerachPanel.add(CenterSerachPanel2);
-		CenterPanel.add(getUpdate());
+		getCenterPanel().add(getUpdate());
 		TopPanel.add(getSend());
 		
 		getTNumbe().addActionListener(this.getA1());
@@ -516,17 +523,17 @@ public class GUI {
 		getReports().addActionListener(this.getA1());
 	
 		JScrollPane sp= new JScrollPane(getReportarea(),JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		
+	
 		reportListPanel.add(sp);	
-		getArea().setVisible(false);
 		reportPanel.add(getReports());
 		BottomPanel.add(reportPanel);
 		FramePanel.add(TopPanel);
 		FramePanel.add(CenterSerachPanel);
-		FramePanel.add(CenterPanel);
+		FramePanel.add(BarPanel);
+		FramePanel.add(getCenterPanel());
 		FramePanel.add(BottomPanel);
 		FramePanel.add(reportListPanel);	
-		
+		getCenterPanel().setVisible(false);
 		frame.add(FramePanel);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -534,10 +541,15 @@ public class GUI {
 		frame.pack();
 		frame.setVisible(true);
 	
-		
+	
 	}
 	
 	
+	private Component getTopPanel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public JPanel getCenterPanel() {
 		return CenterPanel;
 	}
@@ -553,8 +565,19 @@ public class GUI {
 	public void setVatCombo(JComboBox vatCombo) {
 		VatCombo = vatCombo;
 	}
-
+	 static String vtName="Product.db"; //farklı isimlerde veri tabanı oluşturulabilir
+	 static String vtPath="sql\\"+vtName;
 	public static void main(String[] args) {
+		String currentDirectory = System.getProperty("user.dir");
+		File f = new File(vtPath);
+		if(f.exists() && !f.isDirectory()) { 
+			
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "vt kontrol edildi ve yok"+currentDirectory+"sql yolunda kayıt edilmiştir  ");
+			CreateDB create=new CreateDB(vtPath);
+		}
+	
 		new GUI();
 
 	}

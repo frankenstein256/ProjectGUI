@@ -11,7 +11,7 @@ public class InsertProduct extends  ConnectDB {
 	
 	
 	
-	String print;
+	String print="";
 	boolean check=false;
 	
 	public boolean check(String PNumber)
@@ -49,15 +49,20 @@ public class InsertProduct extends  ConnectDB {
 				pstmt.setDouble(3,PPrice);
 				pstmt.setInt(4,PVat);
 				pstmt.setString(5,PBarcode);
-				 pstmt.execute();
+				 
+				  if ( pstmt.executeUpdate() > 0) {
+					 print="ekleme başarılı";
+			        } else {
+			        	 print="kayıt eklenemedi";
+			        }
 				
 			} catch (Exception e) {
 				print = e.getMessage();
-				JOptionPane.showMessageDialog(null, print);
+				
 				
 			}
 
-		
+			JOptionPane.showMessageDialog(null, print);
 		}
 			
 }

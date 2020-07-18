@@ -2,5 +2,7 @@ eclipse.preferences.version=1
 encoding//src/com/gui/faz1/Actions.java=UTF-8
 encoding//src/com/gui/faz1/CharacterControlers.java=UTF-8
 encoding//src/com/gui/faz1/ConnectDB.java=UTF-8
+encoding//src/com/gui/faz1/CreateDB.java=UTF-8
 encoding//src/com/gui/faz1/GUI.java=UTF-8
+encoding//src/com/gui/faz1/InsertProduct.java=UTF-8
 encoding//src/com/gui/faz1/UpdateProduct.java=UTF-8
